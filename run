@@ -1,0 +1,3 @@
+#! /bin/bash
+
+scalac -Ypatmat-exhaust-depth off series-t-22.scala
