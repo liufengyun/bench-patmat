@@ -1,3 +1,4 @@
 #! /bin/bash
 
-scalac -Ypatmat-exhaust-depth off series-t-22.scala
+time scalac -Ypatmat-exhaust-depth off huge.scala
+time dotc2 -Ystop-after:patternMatcher huge.scala
