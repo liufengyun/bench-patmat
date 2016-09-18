@@ -1,0 +1,48 @@
+diff --git a/src/dotty/tools/dotc/transform/patmat/Space.scala b/src/dotty/tools/dotc/transform/patmat/Space.scala
+index d942c68..a1490be 100644
+--- a/src/dotty/tools/dotc/transform/patmat/Space.scala
++++ b/src/dotty/tools/dotc/transform/patmat/Space.scala
+@@ -13,6 +13,8 @@ import core.StdNames._
+ import core.NameOps._
+ import core.Constants._
+ 
++import java.lang.management.ManagementFactory
++
+ /** Space logic for checking exhaustivity and unreachability of pattern matching
+  *
+  *  Space can be thought of as a set of possible values. A type or a pattern
+@@ -522,7 +524,7 @@ class SpaceEngine(implicit ctx: Context) extends SpaceLogic {
+     }
+ 
+     val Match(sel, cases) = tree
+-    isCheckable(sel.tpe.widen.deAnonymize.dealias)
++    isCheckable(sel.tpe.widen.deAnonymize.dealias) && sel.symbol.owner.name.toString == "test"
+   }
+ 
+ 
+@@ -584,15 +586,23 @@ class SpaceEngine(implicit ctx: Context) extends SpaceLogic {
+ 
+ 
+     val patternSpace = cases.map(x => project(x.pat)).reduce((a, b) => Or(List(a, b)))
+-    val uncovered = simplify(minus(Typ(selTyp, true), patternSpace))
+ 
++    (1 to 20).foreach { x =>
++      var time = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime()
++      val uncovered = simplify(minus(Typ(selTyp, true), patternSpace))
++      print((ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - time))
++
++      if (x != 10) print(", ")
++    }
++
++    /*
+     if (uncovered != Empty) {
+       ctx.warning(
+         "match may not be exhaustive.\n" +
+         s"It would fail on the following input: " +
+         show(uncovered), _match.pos
+       )
+-    }
++    }*/
+   }
+ 
+   def checkRedundancy(_match: Match): Unit = {
