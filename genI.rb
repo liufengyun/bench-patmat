@@ -10,7 +10,7 @@ end
 puts %q[
 object Test {
 
-  def f(c: C): Int = c match {]
+  def test(c: C): Int = c match {]
 
 
 (1..n).each do |i|

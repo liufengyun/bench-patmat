@@ -31,7 +31,7 @@ object B extends O
 
 object Test {
 
-  def f(x: O) = ]
+  def test(x: O) = ]
 
 puts ("  (" + ("x, " * (COLS - 1)) + "x) match {")
 
