@@ -1,4 +1,93 @@
 #! /bin/bash
 
-time scalac -Ypatmat-exhaust-depth off huge.scala
-time dotc2 -Ystop-after:patternMatcher huge.scala
+DOTC=~/Documents/dotty/bin/dotc -Ystop-after:patternMatcher
+SCALAC=~/Documents/scala/build/pack/bin/scalac -Ypatmat-exhaust-depth off
+
+####################################
+#  Output Log Format: 
+#   
+#  [data]I, dotty, x, y
+#  [data]S, dotty, x, y
+#  [data]V, scala, x, y
+#  [data]T, scala, x, y
+#
+# Data is mixed in raw log output
+####################################
+
+
+# series I: [20, 40, 60, ..., 200]
+for i in {20..200..20}; do
+  file=series-I-$i.scala
+  echo "generating $file..."
+  ruby genI.rb $i > $file
+
+  echo "dotc $file..."
+  result=$($DOTC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]I, dotty, $i, $mean"
+
+  echo "scalac $file..."
+  result=$($SCALAC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]I, scala, $i, $mean"
+done
+
+# series S: [4, ..., 11]
+for i in {4..11}; do
+  file=series-S-$i.scala
+  echo "generating $file..."
+  ruby genS.rb $i > $file
+
+  echo "dotc $file..."
+  result=$($DOTC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]S, dotty, $i, $mean"
+
+  echo "scalac $file..."
+  result=$($SCALAC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]S, scala, $i, $mean"
+done
+
+# series V: [1, 2, ..., 6]
+for i in {1..6}; do
+  file=series-V-$i.scala
+  echo "generating $file..."
+  ruby genV.rb $i > $file
+
+  echo "dotc $file..."
+  result=$($DOTC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]V, dotty, $i, $mean"
+
+  echo "scalac $file..."
+  result=$($SCALAC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]V, scala, $i, $mean"
+done
+
+# series T: [1, 2, ..., 22]
+for i in {1..6}; do
+  file=series-T-$i.scala
+  echo "generating $file..."
+  ruby genT.rb $i > $file
+
+  echo "dotc $file..."
+  result=$($DOTC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]T, dotty, $i, $mean"
+
+  echo "scalac $file..."
+  result=$($SCALAC $file)
+  mean=$(echo $result | awk '{s+=$1}END{print s/NR}' RS=",")
+  echo "raw: $result"
+  echo "[data]T, scala, $i, $mean"
+done
+
