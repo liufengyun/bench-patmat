@@ -1,5 +1,5 @@
 diff --git a/src/dotty/tools/dotc/transform/patmat/Space.scala b/src/dotty/tools/dotc/transform/patmat/Space.scala
-index d942c68..552b663 100644
+index d942c68..d64dd1e 100644
 --- a/src/dotty/tools/dotc/transform/patmat/Space.scala
 +++ b/src/dotty/tools/dotc/transform/patmat/Space.scala
 @@ -13,6 +13,8 @@ import core.StdNames._
@@ -16,7 +16,7 @@ index d942c68..552b663 100644
  
      val Match(sel, cases) = tree
 -    isCheckable(sel.tpe.widen.deAnonymize.dealias)
-+    isCheckable(sel.tpe.widen.deAnonymize.dealias) && sel.symbol.owner.name.toString == "test"
++    isCheckable(sel.tpe.widen.deAnonymize.dealias) && ctx.owner.name.toString == "test"
    }
  
  
