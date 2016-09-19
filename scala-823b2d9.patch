@@ -1,5 +1,5 @@
 diff --git a/src/compiler/scala/tools/nsc/transform/patmat/MatchAnalysis.scala b/src/compiler/scala/tools/nsc/transform/patmat/MatchAnalysis.scala
-index 1331eb6..d697ce9 100644
+index 1331eb6..b9895c3 100644
 --- a/src/compiler/scala/tools/nsc/transform/patmat/MatchAnalysis.scala
 +++ b/src/compiler/scala/tools/nsc/transform/patmat/MatchAnalysis.scala
 @@ -11,6 +11,7 @@ import scala.collection.immutable.{IndexedSeq, Iterable}
@@ -10,17 +10,22 @@ index 1331eb6..d697ce9 100644
  
  trait TreeAndTypeAnalysis extends Debugging {
    import global._
-@@ -912,9 +913,13 @@ trait MatchAnalysis extends MatchApproximation {
+@@ -911,10 +912,17 @@ trait MatchAnalysis extends MatchApproximation {
+           reportUnreachable(cases(caseIndex).last.pos)
          }
        }
-       if (!suppression.suppressExhaustive) {
+-      if (!suppression.suppressExhaustive) {
 -        val counterExamples = exhaustive(prevBinder, cases, pt)
 -        if (counterExamples.nonEmpty)
 -          reportMissingCases(prevBinder.pos, counterExamples)
++
++      if (!suppression.suppressExhaustive && typer.context.owner.name.toString == "test") {
 +        (1 to 20).foreach { x =>
 +          var time = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime()
 +          val counterExamples = exhaustive(prevBinder, cases, pt)
 +          print((ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - time))
++
++          if (x != 20) print(", ")
 +        }
 +        // if (counterExamples.nonEmpty)
 +        //  reportMissingCases(prevBinder.pos, counterExamples)

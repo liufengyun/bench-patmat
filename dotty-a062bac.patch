@@ -1,5 +1,5 @@
 diff --git a/src/dotty/tools/dotc/transform/patmat/Space.scala b/src/dotty/tools/dotc/transform/patmat/Space.scala
-index d942c68..a1490be 100644
+index d942c68..552b663 100644
 --- a/src/dotty/tools/dotc/transform/patmat/Space.scala
 +++ b/src/dotty/tools/dotc/transform/patmat/Space.scala
 @@ -13,6 +13,8 @@ import core.StdNames._
@@ -31,7 +31,7 @@ index d942c68..a1490be 100644
 +      val uncovered = simplify(minus(Typ(selTyp, true), patternSpace))
 +      print((ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - time))
 +
-+      if (x != 10) print(", ")
++      if (x != 20) print(", ")
 +    }
 +
 +    /*
