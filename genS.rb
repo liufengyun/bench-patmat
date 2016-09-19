@@ -21,21 +21,19 @@ puts ("  (" + ("x, " * (columns - 1)) + "x) match {")
 
 (1..rows).each do |row|
   print "    case ("
-
-  if row == rows then
-     (1..columns).each do |column|
-         print (column % 2 == 0 ? "A" : "B")
-         print (column == columns ? "" : ", ")
-     end
-  else
-     (1..columns).each do |column|
-         print ((column + 1) / 2 == row ? "A" : "_")
-         print (column == columns ? "" : ", ")
-     end
-  end
-
+    (1..columns).each do |column|
+        print ((column + 1) / 2 == row ? "A" : "_")
+        print (column == columns ? "" : ", ")
+    end
   puts ") => #{row}"
 end
+
+print "    case ("
+  (1..columns).each do |column|
+      print (column % 2 == 0 ? "A" : "B")
+      print (column == columns ? "" : ", ")
+  end
+puts ") => #{rows + 1}"
 
 puts %q[
   }
