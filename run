@@ -1,17 +1,24 @@
 #! /bin/bash
 
-DOTC=~/Documents/dotty/bin/dotc -Ystop-after:patternMatcher
-SCALAC=~/Documents/scala/build/pack/bin/scalac -Ypatmat-exhaust-depth off
+DOTC="/Users/liufengyun/Documents/dotty/bin/dotc -Ystop-after:patternMatcher"
+SCALAC="/Users/liufengyun/Documents/scala/build/pack/bin/scalac -Ypatmat-exhaust-depth off"
 
 ####################################
-#  Output Log Format: 
-#   
+#  Output Log Format:
+#
 #  [data]I, dotty, x, y
 #  [data]S, dotty, x, y
 #  [data]V, scala, x, y
 #  [data]T, scala, x, y
 #
-# Data is mixed in raw log output
+# Data is mixed in raw log output.
+#
+# Following commands may be helpful:
+#
+#  bash run | tee log.txt
+#
+#  cat log.txt | grep "\[data\]" | sed -e "s/\[data\]//" > report.csv
+#
 ####################################
 
 
@@ -90,4 +97,3 @@ for i in {1..22}; do
   echo "raw: $result"
   echo "[data]T, scala, $i, $mean"
 done
-
