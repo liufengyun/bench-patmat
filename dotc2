@@ -1,9 +1,0 @@
-#! /bin/bash
-
-COMPILER_RUNTIME=/Users/liufengyun/.ivy2/cache/me.d-d/scala-compiler/jars/scala-compiler-2.11.5-20160322-171045-e19b30b3cd.jar:/Users/liufengyun/Documents/dotty/interfaces/target/dotty-interfaces-0.1-SNAPSHOT.jar:/Users/liufengyun/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.5.jar:/Users/liufengyun/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.5.jar:/Users/liufengyun/.ivy2/cache/org.scala-sbt/interface/jars/interface-0.13.9.jar:/Users/liufengyun/Documents/dotty/target/scala-2.11/dotty_2.11-0.1-SNAPSHOT.jar
-
-LIB=.:/Users/liufengyun/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.5.jar:/Users/liufengyun/Documents/dotty/target/scala-2.11/dotty_2.11-0.1-SNAPSHOT.jar:/Users/liufengyun/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.5.jar:/Users/liufengyun/.ivy2/cache/org.scala-lang/scala-xml/jars/scala-xml-2.11.0-M4.jar
-
-# compile user program
-java -cp $COMPILER_RUNTIME dotty.tools.dotc.Main -classpath $LIB "$@"
-

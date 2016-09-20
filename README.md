@@ -32,6 +32,10 @@ sbt compile package
 
 ### Run Test
 
+First, update the dotty and scala path in the file `run`.
+
+Then, run the tests:
+
 ```
 bash run | tee log.out
 ```
