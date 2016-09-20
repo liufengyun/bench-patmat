@@ -1,0 +1,26 @@
+#! /bin/bash
+
+FILE=$1
+DEST=$2
+DATA=$DEST/report.csv
+
+# extract data from log
+# I, dotty, 100, 1.7735e+07
+# I, scala, 100, 1.63936e+07
+cat $FILE | grep "\[data\]" | sed -e "s/\[data\]//" > $DATA
+
+# extract series I
+cat $DATA | grep "I, dotty" | sed -e "s/I, dotty, //" > $DATA/dotty-I.csv
+cat $DATA | grep "I, scala" | sed -e "s/I, scala, //" > $DATA/scala-I.csv
+
+# extract series S
+cat $DATA | grep "S, dotty" | sed -e "s/S, dotty, //" > $DATA/dotty-S.csv
+cat $DATA | grep "S, scala" | sed -e "s/S, scala, //" > $DATA/scala-S.csv
+
+# extract series V
+cat $DATA | grep "V, dotty" | sed -e "s/V, dotty, //" > $DATA/dotty-V.csv
+cat $DATA | grep "V, scala" | sed -e "s/V, scala, //" > $DATA/scala-V.csv
+
+# extract series T
+cat $DATA | grep "T, dotty" | sed -e "s/T, dotty, //" > $DATA/dotty-T.csv
+cat $DATA | grep "T, scala" | sed -e "s/T, scala, //" > $DATA/scala-T.csv
